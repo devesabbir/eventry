@@ -3,8 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import ActionsButtons from "@/app/components/ActionsButtons";
 import EventSchemaScript from "@/app/components/meta/EventSchemaScript";
+import { getBlurData } from "@/utils";
 
-function EventCard({ event }) {
+async function EventCard({ event }) {
+  const { base64 } = await getBlurData(event.imageUrl);
+
   return (
     <div className="overflow-hidden rounded-md bg-[#242526]">
       <EventSchemaScript event={event} />
@@ -13,6 +16,8 @@ function EventCard({ event }) {
         alt={event.name}
         width={500}
         height={500}
+        placeholder="blur"
+        blurDataURL={base64}
         className="w-full"
       />
       <div className="p-3">

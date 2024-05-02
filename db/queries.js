@@ -4,9 +4,14 @@ import connectDB from "@/services/mongo";
 import { replaceMongoID, replaceMongoIDObject } from "@/utils/replaceMongoID";
 import mongoose from "mongoose";
 
-async function getAllEvents() {
-  await connectDB();
-  const allEvents = await eventModel.find().lean();
+async function getAllEvents(query) {
+  let allEvents = [];
+  if (query) {
+    const regex = new RegExp(query, "i");
+    allEvents = await eventModel.find({ name: { $regex: regex } }).lean();
+  } else {
+    allEvents = await eventModel.find().lean();
+  }
   return replaceMongoID(allEvents);
 }
 

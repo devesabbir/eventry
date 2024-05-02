@@ -21,7 +21,6 @@ async function connectDB() {
 
   if (!cached.promise) {
     const options = {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
       connectTimeoutMS: 20000, // Increased timeout to 20 seconds
     };
